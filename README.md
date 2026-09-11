@@ -4,7 +4,7 @@ Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 
 ## Uso remoto
 
-Execute com:
+Execute no PowerShell:
 
 ```powershell
 irm https://projetoalfa.org/win/ | iex
