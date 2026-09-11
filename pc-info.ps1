@@ -3,6 +3,11 @@ param()
 
 Set-StrictMode -Version Latest
 
+if ($PSScriptRoot -and -not (Get-Command Find-AnyDeskExecutable -CommandType Function -ErrorAction SilentlyContinue)) {
+    $anyDeskPath = Join-Path $PSScriptRoot 'anydesk.ps1'
+    if (Test-Path -LiteralPath $anyDeskPath) { . $anyDeskPath }
+}
+
 function Get-PCInfoCim {
     param(
         [Parameter(Mandatory)] [string] $ClassName,
@@ -54,6 +59,30 @@ function Format-PCInfoSize {
     return '{0:N1} GB' -f ($Bytes / 1GB)
 }
 
+function Get-PCInfoAnyDeskId {
+    if (-not (Get-Command Find-AnyDeskExecutable -CommandType Function -ErrorAction SilentlyContinue)) {
+        return 'n/d'
+    }
+
+    try {
+        $executable = Find-AnyDeskExecutable
+        if (-not $executable) { return 'n/d' }
+        $id = Get-AnyDeskValue -Executable $executable -Argument '--get-id'
+        if ($id -and $id -ne 'indisponivel') { return $id }
+    }
+    catch { }
+
+    return 'n/d'
+}
+
+function Format-PCInfoAnyDeskId {
+    param([AllowNull()] [string] $Id)
+
+    if ([string]::IsNullOrWhiteSpace($Id) -or $Id -eq 'n/d') { return 'n/d' }
+    if ($Id -notmatch '^\d+$') { return $Id }
+    return [regex]::Replace($Id, '(?<=\d)(?=(\d{3})+$)', ' ')
+}
+
 function Get-PCInfoSnapshot {
     $system = Get-PCInfoCim -ClassName 'Win32_ComputerSystem' | Select-Object -First 1
     $os = Get-PCInfoCim -ClassName 'Win32_OperatingSystem' | Select-Object -First 1
@@ -94,6 +123,7 @@ function Get-PCInfoSnapshot {
         Disks = if ($diskSummary.Count -gt 0) { $diskSummary -join '; ' } else { 'n/d' }
         Graphics = if ($gpu.Count -gt 0) { (@($gpu | ForEach-Object { Get-PCInfoProperty -InputObject $_ -Name 'Name' }) -join '; ') } else { 'n/d' }
         Serial = Get-PCInfoProperty -InputObject $bios -Name 'SerialNumber'
+        AnyDeskId = Format-PCInfoAnyDeskId (Get-PCInfoAnyDeskId)
     }
 }
 
@@ -112,6 +142,7 @@ function Show-PCInfo {
     Write-Host ('Discos        : {0}' -f $info.Disks)
     Write-Host ('GPU           : {0}' -f $info.Graphics)
     Write-Host ('Serial        : {0}' -f $info.Serial)
+    Write-Host ('AnyDesk ID    : {0}' -f $info.AnyDeskId)
 }
 
 if ($MyInvocation.InvocationName -ne '.') {

@@ -19,7 +19,7 @@ Use somente em computadores autorizados e revise as ações antes de aplicar alt
 - Debloat conservador.
 - Windows Update.
 - Limpeza de arquivos temporários.
-- Informações resumidas do computador.
+- Informações resumidas do computador e ID do AnyDesk.
 - Instalação e configuração do AnyDesk.
 - Backup e restauração de drivers.
 
