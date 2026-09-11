@@ -8,6 +8,9 @@ if ($menu -notmatch '\[Net\.SecurityProtocolType\]::Tls12') {
 if ($menu -notmatch "MaintenanceVersion = '1\.7'") {
     throw 'Falha: versao 1.7 nao foi definida no menu.'
 }
+if ($menu -notmatch "Get-RemoteText 'pc-info\.ps1'" -or $menu -notmatch 'Show-PCInfo') {
+    throw 'Falha: modulo de informacoes do PC nao foi integrado ao menu.'
+}
 
 $pwsh = (Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source
 if (-not $pwsh) {

@@ -19,6 +19,7 @@ Use somente em computadores autorizados e revise as ações antes de aplicar alt
 - Debloat conservador.
 - Windows Update.
 - Limpeza de arquivos temporários.
+- Informações resumidas do computador.
 - Instalação e configuração do AnyDesk.
 - Backup e restauração de drivers.
 
@@ -43,6 +44,12 @@ Prévia:
 ```powershell
 .\debloat.ps1
 .\limpeza.ps1
+```
+
+Informações do PC:
+
+```powershell
+.\pc-info.ps1
 ```
 
 Aplicação:

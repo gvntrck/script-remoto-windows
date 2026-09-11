@@ -33,6 +33,7 @@ if ($PSScriptRoot) {
     . (Join-Path $PSScriptRoot 'windows-update.ps1')
     . (Join-Path $PSScriptRoot 'anydesk.ps1')
     . (Join-Path $PSScriptRoot 'limpeza.ps1')
+    . (Join-Path $PSScriptRoot 'pc-info.ps1')
 }
 else {
     . ([scriptblock]::Create((Get-RemoteText 'lib/Common.ps1')))
@@ -40,6 +41,7 @@ else {
     . ([scriptblock]::Create((Get-RemoteText 'windows-update.ps1')))
     . ([scriptblock]::Create((Get-RemoteText 'anydesk.ps1')))
     . ([scriptblock]::Create((Get-RemoteText 'limpeza.ps1')))
+    . ([scriptblock]::Create((Get-RemoteText 'pc-info.ps1')))
 }
 
 function Invoke-DriverBackup {
@@ -87,6 +89,7 @@ function Show-MaintenanceMenu {
     Write-Host '2. Windows Update + Drivers'
     Write-Host '3. Instalar e configurar AnyDesk'
     Write-Host '4. Limpeza de temporarios'
+    Write-Host '5. Informacoes do PC'
     Write-Host '6. Backup e restauracao de drivers'
     Write-Host '0. Sair'
 }
@@ -126,6 +129,15 @@ do {
         '4' {
             try {
                 Invoke-Cleanup -Apply
+            }
+            catch {
+                Write-Error $_.Exception.Message
+            }
+            Read-Host "`nPressione Enter para continuar" | Out-Null
+        }
+        '5' {
+            try {
+                Show-PCInfo
             }
             catch {
                 Write-Error $_.Exception.Message
