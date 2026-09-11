@@ -1,6 +1,6 @@
-# Manutenção Windows 11
+# Manutenção Windows 10 e 11
 
-Scripts PowerShell para manutenção administrativa do Windows 11:
+Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 
 - Debloat conservador.
 - Windows Update.
@@ -10,7 +10,7 @@ Scripts PowerShell para manutenção administrativa do Windows 11:
 
 ## Requisitos
 
-- Windows 11.
+- Windows 10 ou 11.
 - PowerShell executado como Administrador.
 - Internet para Windows Update, AnyDesk e uso remoto.
 
