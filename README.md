@@ -2,6 +2,16 @@
 
 Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 
+## Uso remoto
+
+Execute com:
+
+`irm` [https://projetoalfa.org/win/](https://projetoalfa.org/win/) `| iex`
+
+Use somente em computadores autorizados e revise as ações antes de aplicar alterações.
+
+## O que faz
+
 - Debloat conservador.
 - Windows Update.
 - Limpeza de arquivos temporários.
@@ -13,6 +23,8 @@ Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 - Windows 10 ou 11.
 - PowerShell executado como Administrador.
 - Internet para Windows Update, AnyDesk e uso remoto.
+
+O alvo de compatibilidade é Windows 10 versão 1607 ou posterior e Windows 11, usando Windows PowerShell 5.1. O backup de drivers usa a sintaxe moderna do PnPUtil quando disponível e faz fallback para a sintaxe legada.
 
 ## Uso
 
@@ -42,11 +54,3 @@ Backup ou restauração de drivers:
 ```powershell
 .\SCRIPT.Drivers.Backup.bat
 ```
-
-## Uso remoto
-
-Execute com:
-
-`irm` [https://projetoalfa.org/win/](https://projetoalfa.org/win/) `| iex`
-
-Use somente em computadores autorizados e revise as ações antes de aplicar alterações.
