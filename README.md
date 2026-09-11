@@ -6,7 +6,9 @@ Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 
 Execute com:
 
-`irm` [https://projetoalfa.org/win/](https://projetoalfa.org/win/) `| iex`
+```powershell
+irm https://projetoalfa.org/win/ | iex
+```
 
 Use somente em computadores autorizados e revise as ações antes de aplicar alterações.
 
