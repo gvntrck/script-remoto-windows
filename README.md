@@ -1,62 +1,54 @@
-# Script remoto de manutenção Windows
+# Manutenção Windows 11
 
-Primeira entrega: Debloat Windows 11 conservador.
+Scripts PowerShell para manutenção administrativa do Windows 11:
 
-## Publicacao HTTPS
+- Debloat conservador.
+- Windows Update.
+- Limpeza de arquivos temporários.
+- Instalação e configuração do AnyDesk.
+- Backup e restauração de drivers.
 
-Envie para `https://projetoalfa.org/win/` estes itens, preservando as subpastas:
+## Requisitos
 
-- `.htaccess`
-- `index.html`
-- `menu.ps1`
-- `debloat.ps1`
-- `windows-update.ps1`
-- `anydesk.ps1`
-- `limpeza.ps1`
-- `SCRIPT.Drivers.Backup.bat`
-- `lib/Common.ps1`
-- `docs/debloat-policy.md`
+- Windows 11.
+- PowerShell executado como Administrador.
+- Internet para Windows Update, AnyDesk e uso remoto.
 
-Depois, o comando remoto sera:
+## Uso
 
-```powershell
-irm https://projetoalfa.org/win | iex
-```
-
-O `.htaccess` desativa listagem de diretorio e direciona a pasta diretamente para `menu.ps1`. Nao e necessario expor um indexador de arquivos.
-
-## Uso local
-
-Abra PowerShell como Administrador na pasta do projeto:
+Menu principal:
 
 ```powershell
 .\menu.ps1
 ```
 
-Prévia sem alteração:
+Prévia:
 
 ```powershell
 .\debloat.ps1
+.\limpeza.ps1
 ```
 
-Aplicação com confirmação:
+Aplicação:
 
 ```powershell
 .\debloat.ps1 -Apply
+.\limpeza.ps1 -Apply
+.\windows-update.ps1 -Install
 ```
 
-O menu remoto agora usa exclusivamente esse dominio HTTPS e carrega os modulos publicados no mesmo servidor. Windows Update instala atualizacoes regulares por padrao; drivers, previews e opcionais ficam separados. AnyDesk baixa somente da fonte oficial, valida a assinatura Authenticode, instala o servico e pede a senha de acesso nao supervisionado sem registra-la.
+Backup ou restauração de drivers:
 
-Backup e restauracao de drivers:
-
-```text
-No menu principal, escolha 6.
-O script `SCRIPT.Drivers.Backup.bat` sera aberto com o menu proprio dele.
+```powershell
+.\SCRIPT.Drivers.Backup.bat
 ```
 
-Limpeza:
+## Uso remoto
 
-```text
-No menu principal, escolha 4.
-A limpeza mostra uma previa e remove somente temporarios do usuario e do sistema apos confirmacao.
+Com os arquivos publicados em `https://projetoalfa.org/win/`:
+
+```powershell
+irm https://projetoalfa.org/win | iex
 ```
+
+Use somente em computadores autorizados e revise as ações antes de aplicar alterações.
