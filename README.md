@@ -45,10 +45,8 @@ Backup ou restauração de drivers:
 
 ## Uso remoto
 
-Com os arquivos publicados em `https://projetoalfa.org/win/`:
+Execute com:
 
-```powershell
-irm https://projetoalfa.org/win | iex
-```
+`irm` [https://projetoalfa.org/win/](https://projetoalfa.org/win/) `| iex`
 
 Use somente em computadores autorizados e revise as ações antes de aplicar alterações.
