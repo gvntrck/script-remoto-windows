@@ -1,6 +1,14 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+$menu = Get-Content -Raw (Join-Path $PSScriptRoot '..\menu.ps1')
+if ($menu -notmatch '\[Net\.SecurityProtocolType\]::Tls12') {
+    throw 'Falha: carregamento remoto nao habilita TLS 1.2.'
+}
+if ($menu -notmatch "MaintenanceVersion = '1\.7'") {
+    throw 'Falha: versao 1.7 nao foi definida no menu.'
+}
+
 $pwsh = (Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source
 if (-not $pwsh) {
     $pwsh = (Get-Command powershell.exe -ErrorAction Stop).Source

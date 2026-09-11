@@ -16,5 +16,8 @@ if ($backup -notmatch '(?m)^@echo off') {
 if ($backup -notmatch '(?m)^set /p opcao=') {
     throw 'Falha: menu proprio do script de backup nao foi preservado.'
 }
+if ($backup -notmatch '(?m)pnputil -i -a') {
+    throw 'Falha: fallback para versoes antigas do Windows 10 nao foi preservado.'
+}
 
 Write-Output 'Driver backup self-check: ok'

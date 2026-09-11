@@ -39,7 +39,7 @@ function Save-AnyDeskInstaller {
     $curl = Get-Command curl.exe -CommandType Application -ErrorAction SilentlyContinue
     if ($curl) {
         Write-Host 'Download via curl com retry...' -ForegroundColor Cyan
-        & $curl.Source --location --fail --show-error --retry 3 --retry-all-errors --retry-delay 2 --connect-timeout 30 --max-time 300 --output $Destination $Uri
+        & $curl.Source --location --fail --show-error --retry 3 --retry-delay 2 --connect-timeout 30 --max-time 300 --output $Destination $Uri
         if ($LASTEXITCODE -eq 0 -and (Test-Path -LiteralPath $Destination) -and (Get-Item -LiteralPath $Destination).Length -gt 1MB) {
             return
         }

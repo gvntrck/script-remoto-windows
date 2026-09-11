@@ -3,6 +3,7 @@ param()
 
 Set-StrictMode -Version Latest
 
+$script:MaintenanceVersion = '1.7'
 $script:RemoteBaseUrl = 'https://projetoalfa.org/win'
 
 function Get-RemoteText {
@@ -13,11 +14,16 @@ function Get-RemoteText {
         throw 'Somente URLs HTTPS sao permitidas.'
     }
 
+    $originalProtocol = [Net.ServicePointManager]::SecurityProtocol
     try {
+        [Net.ServicePointManager]::SecurityProtocol = $originalProtocol -bor [Net.SecurityProtocolType]::Tls12
         return (Invoke-WebRequest -Uri $uri -UseBasicParsing -ErrorAction Stop).Content
     }
     catch {
         throw "Falha ao carregar ${uri}: $($_.Exception.Message)"
+    }
+    finally {
+        [Net.ServicePointManager]::SecurityProtocol = $originalProtocol
     }
 }
 
@@ -74,7 +80,8 @@ function Invoke-DriverBackup {
 
 function Show-MaintenanceMenu {
     Clear-Host
-    Write-Host 'Manutencao Windows 11 - gvntrck' -ForegroundColor Cyan
+    Write-Host 'Manutencao Windows 10-11 - gvntrck' -ForegroundColor Cyan
+    Write-Host ("v{0}" -f $script:MaintenanceVersion) -ForegroundColor DarkGray
     Write-Host '===================='
     Write-Host '1. Debloat'
     Write-Host '2. Windows Update + Drivers'

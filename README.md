@@ -2,6 +2,8 @@
 
 Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 
+Versão atual: `1.7`.
+
 ## Uso remoto
 
 Execute no PowerShell:

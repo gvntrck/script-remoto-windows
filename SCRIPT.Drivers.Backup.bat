@@ -18,6 +18,12 @@ if "%opcao%"=="1" (
     echo.
     echo Iniciando o backup dos drivers...
     dism /online /export-driver /destination:C:\DriversBackup
+    if errorlevel 1 (
+        echo.
+        echo Falha ao exportar os drivers.
+        pause
+        goto menu
+    )
     echo.
     echo Backup concluido! Os drivers foram salvos em C:\DriversBackup
     pause
@@ -30,12 +36,24 @@ if "%opcao%"=="2" (
     echo.
 
     echo Iniciando a restauracao dos drivers de %caminho%...
+    pnputil /? | findstr /i /c:"/add-driver" >nul
+    if errorlevel 1 (set "pnputilModern=0") else (set "pnputilModern=1")
+    set "driverFailure=0"
     for /r "%caminho%" %%f in (*.inf) do (
         echo Instalando driver: %%f
-        pnputil /add-driver "%%f" /install
+        if "%pnputilModern%"=="1" (
+            pnputil /add-driver "%%f" /install
+        ) else (
+            pnputil -i -a "%%f"
+        )
+        if errorlevel 1 set "driverFailure=1"
     )
     echo.
-    echo Restauracao concluida!
+    if "%driverFailure%"=="1" (
+        echo Restauracao concluida com falhas. Consulte as mensagens acima.
+    ) else (
+        echo Restauracao concluida!
+    )
     pause
     goto menu
 )
