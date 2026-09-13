@@ -142,8 +142,8 @@ function Show-PCInfo {
     Write-Host ('Discos        : {0}' -f $info.Disks)
     Write-Host ('GPU           : {0}' -f $info.Graphics)
     Write-Host ('Serial        : {0}' -f $info.Serial)
-    $bold = if ($PSStyle) { $PSStyle.Bold } else { "$([char] 27)[1m" }
-    $reset = if ($PSStyle) { $PSStyle.Reset } else { "$([char] 27)[0m" }
+    $bold = "$([char] 27)[1m"
+    $reset = "$([char] 27)[0m"
     Write-Host ("{0}AnyDesk ID    : {1}{2}" -f $bold, $info.AnyDeskId, $reset) -ForegroundColor Red
 }
 

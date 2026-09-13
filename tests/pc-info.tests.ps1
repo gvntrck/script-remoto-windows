@@ -30,4 +30,6 @@ if ($info.AnyDeskId -ne '123 456 789') { throw 'Falha: ID do AnyDesk nao foi col
 if ((Format-PCInfoAnyDeskId 'n/d') -ne 'n/d') { throw 'Falha: ID indisponivel foi alterado.' }
 if ((Format-PCInfoSize 1GB) -notmatch '1,0|1\.0') { throw 'Falha: tamanho nao foi formatado.' }
 
+Show-PCInfo
+
 Write-Output 'PC info self-check: ok'
