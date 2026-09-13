@@ -3,7 +3,7 @@ param()
 
 Set-StrictMode -Version Latest
 
-$script:MaintenanceVersion = '1.8'
+$script:MaintenanceVersion = '1.9'
 $script:RemoteBaseUrl = 'https://projetoalfa.org/win'
 
 function Get-RemoteText {

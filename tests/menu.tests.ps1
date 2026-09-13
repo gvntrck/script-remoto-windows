@@ -5,8 +5,8 @@ $menu = Get-Content -Raw (Join-Path $PSScriptRoot '..\menu.ps1')
 if ($menu -notmatch '\[Net\.SecurityProtocolType\]::Tls12') {
     throw 'Falha: carregamento remoto nao habilita TLS 1.2.'
 }
-if ($menu -notmatch "MaintenanceVersion = '1\.8'") {
-    throw 'Falha: versao 1.8 nao foi definida no menu.'
+if ($menu -notmatch "MaintenanceVersion = '1\.9'") {
+    throw 'Falha: versao 1.9 nao foi definida no menu.'
 }
 if ($menu -notmatch "Get-RemoteText 'pc-info\.ps1'" -or $menu -notmatch 'Show-PCInfo') {
     throw 'Falha: modulo de informacoes do PC nao foi integrado ao menu.'
