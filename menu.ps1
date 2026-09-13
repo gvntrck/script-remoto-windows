@@ -3,7 +3,7 @@ param()
 
 Set-StrictMode -Version Latest
 
-$script:MaintenanceVersion = '1.7'
+$script:MaintenanceVersion = '1.8'
 $script:RemoteBaseUrl = 'https://projetoalfa.org/win'
 
 function Get-RemoteText {
@@ -34,6 +34,7 @@ if ($PSScriptRoot) {
     . (Join-Path $PSScriptRoot 'anydesk.ps1')
     . (Join-Path $PSScriptRoot 'limpeza.ps1')
     . (Join-Path $PSScriptRoot 'pc-info.ps1')
+    . (Join-Path $PSScriptRoot 'admin-local.ps1')
 }
 else {
     . ([scriptblock]::Create((Get-RemoteText 'lib/Common.ps1')))
@@ -42,6 +43,7 @@ else {
     . ([scriptblock]::Create((Get-RemoteText 'anydesk.ps1')))
     . ([scriptblock]::Create((Get-RemoteText 'limpeza.ps1')))
     . ([scriptblock]::Create((Get-RemoteText 'pc-info.ps1')))
+    . ([scriptblock]::Create((Get-RemoteText 'admin-local.ps1')))
 }
 
 function Invoke-DriverBackup {
@@ -91,6 +93,7 @@ function Show-MaintenanceMenu {
     Write-Host '4. Limpeza de temporarios'
     Write-Host '5. Informacoes do PC'
     Write-Host '6. Backup e restauracao de drivers'
+    Write-Host '7. Ativar Administrador local e definir senha'
     Write-Host '0. Sair'
 }
 
@@ -147,6 +150,15 @@ do {
         '6' {
             try {
                 Invoke-DriverBackup
+            }
+            catch {
+                Write-Error $_.Exception.Message
+            }
+            Read-Host "`nPressione Enter para continuar" | Out-Null
+        }
+        '7' {
+            try {
+                Invoke-LocalAdminSetup
             }
             catch {
                 Write-Error $_.Exception.Message

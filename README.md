@@ -2,7 +2,7 @@
 
 Scripts PowerShell para manutenção administrativa do Windows 10 e 11:
 
-Versão atual: `1.7`.
+Versão atual: `1.8`.
 
 ## Uso remoto
 
@@ -22,6 +22,7 @@ Use somente em computadores autorizados e revise as ações antes de aplicar alt
 - Informações resumidas do computador e ID do AnyDesk.
 - Instalação e configuração do AnyDesk.
 - Backup e restauração de drivers.
+- Ativação da conta Administrador local com definição de senha.
 
 ## Requisitos
 
